@@ -1,4 +1,3 @@
-cat > app.py <<'EOF'
 import os
 import time
 
@@ -90,7 +89,9 @@ def create_product():
         if price < 0 or stock < 0:
             raise ValueError
     except (TypeError, ValueError):
-        return jsonify({"error": "price and stock must be valid non-negative numbers"}), 400
+        return jsonify({
+            "error": "price and stock must be valid non-negative numbers"
+        }), 400
 
     with get_db_connection() as conn:
         product = conn.execute(
@@ -108,4 +109,3 @@ def create_product():
 if __name__ == "__main__":
     initialize_database()
     app.run(host="0.0.0.0", port=5000)
-EOF
